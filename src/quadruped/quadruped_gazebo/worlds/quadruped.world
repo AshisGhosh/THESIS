@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <!-- We use a custom world for the quadruped so that the camera angle is launched correctly -->
+
+  <world name="default">
+    <include>
+	<uri>model://ground_plane</uri>      
+	<!--uri>model://ground_plane_tilt</uri-->
+    </include>
+
+    <!--population name = "dissapearing_terrain">
+	<model name = "surface">
+		<include>
+      			<uri>model://ground_plane1</uri>
+      			<!-plugin name ="surfaceremove" filename="libsurfaceremove.so"/>
+    		</include>
+	</model>
+	<pose> 0 0 0 0 0 0 </pose>
+	<box> 
+		<size> 0.5 4 0.00001 </size>
+	</box>
+	<model_count>20</model_count>
+	<distribution>
+		<type>linear-y</type>
+	</distribution>
+    </population-->
+   
+
+   <!--population name = "slippery_terrain">
+	<model name = "slippery_patch">
+		<include>
+		      <uri>model://ground_plane2</uri>
+		</include>
+	</model>
+	<pose> 0 0 0 0 0 0 </pose>
+	<box> 
+		<size> 0.5 15 0.00000000001 </size>
+	</box>
+	<model_count>100</model_count>
+	<distribution>
+		<type>random</type>
+	</distribution>
+    </population-->
+	
+
+    <!-- Global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+	
+    <plugin name="surfaces" filename="libsurfaces.so"/>
+  
+</world>
+
+    
+ 
+</sdf>

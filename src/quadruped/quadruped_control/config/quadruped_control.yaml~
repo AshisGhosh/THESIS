@@ -1,0 +1,18 @@
+quadruped:
+
+ rf_leg_controller:
+     type: "effort_controllers/JointTrajectoryController"
+
+     joints:
+      - rf_shoulder
+      - rf_knee
+      - rf_ankle
+
+     gains:
+          rf_shoulder:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+          rf_knee:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+          rf_ankle:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+

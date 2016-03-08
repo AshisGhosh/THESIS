@@ -1,0 +1,95 @@
+#include "ros/ros.h"
+#include <std_msgs/Float64.h>
+#include <sensor_msgs/JointState.h>
+#include <math.h>
+
+
+const float PI = 3.14159265359;
+int direction1 = 1;
+int direction2 = 1;
+
+void jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
+{
+  ROS_INFO("I heard: [%f] and [%f]", msg->position[0], msg->position[1]);
+  
+  ros::NodeHandle n;
+  
+  //ros::Publisher armswing_pub = n.advertise<std_msgs::Float64>("armswing/joint1_position_controller", 1000);
+
+  ros::Publisher joint1_pub = n.advertise<std_msgs::Float64>("rrbot/joint1_position_controller/command", 1000);
+
+  std_msgs::Float64 trj1_msg;
+
+  if(direction1>0 && msg->position[0]>PI/2)
+	direction1=-1;
+  else if(direction1<0 && msg->position[0]<-PI/2)
+	direction1=1;
+
+  trj1_msg.data = msg->position[0]+0.25*direction1; 
+
+  
+
+  ROS_INFO("%f", trj1_msg.data);
+  
+  joint1_pub.publish(trj1_msg);
+
+  ros::Publisher joint2_pub = n.advertise<std_msgs::Float64>("rrbot/joint2_position_controller/command", 1000);
+
+  std_msgs::Float64 trj2_msg;
+
+  if(direction2>0 && msg->position[1]>PI/2)
+	direction2=-1;
+  else if(direction2<0 && msg->position[1]<-PI/2)
+	direction2=1;
+
+  //trj2_msg.data = msg->position[1]+0.15*direction2;
+
+  trj2_msg.data = msg->position[0]+0.15*direction1;
+  //trj2_msg.data = 0;
+
+  ROS_INFO("%f", trj2_msg.data);
+
+  joint2_pub.publish(trj2_msg);
+
+  ros::spinOnce();
+  
+}
+
+int main(int argc, char **argv)
+{
+
+  ros::init(argc, argv, "armswing");
+ 
+  ros::NodeHandle n;
+
+  ros::Publisher joint1_pub = n.advertise<std_msgs::Float64>("rrbot/joint1_position_controller/command", 1000);
+
+  ros::Publisher joint2_pub = n.advertise<std_msgs::Float64>("rrbot/joint2_position_controller/command", 1000);
+
+  //ros::Rate loop_rate(10);
+
+  //while (ros::ok())
+  //{
+    //std_msgs::Float64 msg;
+
+    //msg.data = 1.0;
+
+   // ROS_INFO("%f", msg.data);
+
+    
+
+    ros::Subscriber sub = n.subscribe("rrbot/joint_states", 1000, jointCallback);
+
+   // armswing_pub.publish(msg);
+
+    ros::spin();
+
+    //ros::spinOnce();
+
+    //loop_rate.sleep();
+    
+ // }
+
+
+  return 0;
+}

@@ -1,0 +1,8 @@
+prefix=/home/ashis/catkin_ws/install
+
+Name: gztest_cog
+Description: Description of gztest_cog
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/ashis/catkin_ws/install/lib 
+Requires: 

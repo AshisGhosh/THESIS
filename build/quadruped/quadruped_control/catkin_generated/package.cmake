@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "quadruped_control")
+set(quadruped_control_MAINTAINER "Ashis Ghosh <ashisghosh@live.com>")
+set(quadruped_control_DEPRECATED "")
+set(quadruped_control_VERSION "0.0.0")
+set(quadruped_control_BUILD_DEPENDS )
+set(quadruped_control_RUN_DEPENDS )
+set(quadruped_control_BUILDTOOL_DEPENDS "catkin")

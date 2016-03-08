@@ -1,0 +1,79 @@
+quadruped:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+  
+  #RF Position Controllers ---------------------------------------
+  rf_shoulder_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: rf_shoulder
+    pid: {p: 500.0, i: 0.01, d: 50.0}
+  rf_knee_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: rf_knee
+    pid: {p: 500.0, i: 0.01, d: 10.0}
+  rf_ankle_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: rf_ankle
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  rf_roll_shoulder_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: rf_roll_shoulder
+    pid: {p: 1000.0, i: 0.01, d: 100.0}
+
+  #RB Position Controllers ---------------------------------------
+  rb_shoulder_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: rb_shoulder
+    pid: {p: 500.0, i: 0.01, d: 50.0}
+  rb_knee_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: rb_knee
+    pid: {p: 500.0, i: 0.01, d: 10.0}
+  rb_ankle_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: rb_ankle
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  rb_roll_shoulder_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: rb_roll_shoulder
+    pid: {p: 1000.0, i: 0.01, d: 100.0}
+
+  #LF Position Controllers ---------------------------------------
+  lf_shoulder_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: lf_shoulder
+    pid: {p: 500.0, i: 0.01, d: 50.0}
+  lf_knee_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: lf_knee
+    pid: {p: 500.0, i: 0.01, d: 10.0}
+  lf_ankle_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: lf_ankle
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  lf_roll_shoulder_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: lf_roll_shoulder
+    pid: {p: 1000.0, i: 0.01, d: 100.0}
+
+  #LB Position Controllers ---------------------------------------
+  lb_shoulder_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: lb_shoulder
+    pid: {p: 500.0, i: 0.01, d: 50.0}
+  lb_knee_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: lb_knee
+    pid: {p: 500.0, i: 0.01, d: 10.0}
+  lb_ankle_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: lb_ankle
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  lb_roll_shoulder_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: lb_roll_shoulder
+    pid: {p: 1000.0, i: 0.01, d: 100.0}
+
+

@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "gztest_gazebo")
+set(gztest_gazebo_MAINTAINER "Ashis Ghosh <ashisghosh@live.com>")
+set(gztest_gazebo_DEPRECATED "")
+set(gztest_gazebo_VERSION "0.0.0")
+set(gztest_gazebo_BUILD_DEPENDS )
+set(gztest_gazebo_RUN_DEPENDS )
+set(gztest_gazebo_BUILDTOOL_DEPENDS "catkin")

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<robot name="com" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="mass" value="25" /> <!-- arbitrary value for mass -->
+  <xacro:property name="width_body" value="0.4" /> <!-- body width -->
+  <xacro:property name="height_body" value="0.05" /> <!-- body height -->
+  <xacro:property name="length_body" value="0.65" /> <!-- body length -->
+
+ <joint name="frame" type="fixed">
+    <parent link="world"/>
+    <child link="com"/>
+    <origin xyz="0 0 1" rpy="0 0 0"/>
+  </joint>
+
+<link name="com">
+ <collision>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${width_body} ${length_body} ${height_body}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${width_body} ${length_body} ${height_body}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia
+	  ixx="${mass / 12.0 * (length_body*length_body + height_body*height_body)}" ixy="0.0" ixz="0.0"
+	  iyy="${mass / 12.0 * (height_body*height_body + width_body*width_body)}" iyz="0.0"
+	  izz="${mass / 12.0 * (width_body*width_body + length_body*length_body)}"/>
+    </inertial>
+</link>
+
+<gazebo reference="com">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+
+</robot>

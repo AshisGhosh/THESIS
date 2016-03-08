@@ -1,0 +1,313 @@
+<?xml version="1.0"?>
+<!-- Thesis Quadruped Leg -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <xacro:property name="height_upperleg" value="0.3" /> <!-- UpperLeg Height -->
+  <xacro:property name="height_lowerleg" value="0.25" /> <!-- LowerLeg Height -->
+  <xacro:property name="height_foot" value="0.05" /> <!-- Foot Height -->
+  <xacro:property name="height_roll" value="0.02"/> <!-- Invis Link Height -->
+
+  <xacro:property name="height_leg" value="${height_upperleg+height_lowerleg+height_foot+height_roll}"/>
+
+  <xacro:property name="width_leg" value="0.05" /> <!-- leg width -->
+
+  <xacro:property name="mass_leg" value="5" /> <!-- leg width -->  
+
+  <xacro:property name="mass_upperleg" value="${mass_leg*0.65}"/>
+  <xacro:property name="mass_lowerleg" value="${mass_leg*0.15}"/>
+  <xacro:property name="mass_foot" value="${mass_leg*0.2}"/>
+  <xacro:property name="mass_roll" value="${mass_leg*0.05}"/>
+
+  <xacro:property name="jointdamping" value="1.2"/>
+  <xacro:property name="jointeffort" value="1e20"/>
+  <xacro:property name="jointvelocity" value="1e6"/>
+
+<xacro:macro name="leg" params="side reflectx reflecty parent">
+
+<!-- Shoulder Joint -->
+
+
+
+<joint type="revolute" name="${side}_roll_shoulder">
+        	<parent link = "${parent}"/>
+        	<child link = "${side}_invis"/>
+		<origin xyz = "${(width_body+width_leg*2)/2*reflectx} ${0.636/2*reflecty}  ${height_body}" rpy="0 0 0"/>
+		<!--origin xyz = "${(0.22)/2*reflectx} ${0.636/2*reflecty}  0" rpy="0 0 0"/-->
+        	<axis xyz = "0 1 0"/>
+		<dynamics damping="${jointdamping}"/>
+		<limit effort="${jointeffort}" velocity="${jointvelocity}" lower="${-0.3}" upper="${0.3}"/>
+		<safety_controller k_velocity="10" k_position="15" soft_lower_limit="${-PI/3+0.1}" soft_upper_limit="${PI/3+0.1}" />
+	</joint> 
+
+
+<!-- Invisible Roll Link --> 
+   <link name="${side}_invis">
+
+		<collision>
+          	  <origin xyz="0 0 ${-height_roll/2}" rpy="0 0 0"/>
+                  <geometry>
+	            <box size="${width_leg*2} ${width_leg*2} ${height_roll}"/>
+                  </geometry>
+		</collision>
+
+          	<visual>
+          	  <origin xyz="0 0 ${-height_roll/2}" rpy="0 0 0"/>
+                  <geometry>
+	            <box size="${width_leg*2} ${width_leg*2} ${height_roll}"/>
+                  </geometry>
+		  <material name="orange"/>
+		</visual>
+
+
+		<inertial>
+	          <origin xyz="0 0 ${-height_roll/2}" rpy="0 0 0"/>
+	          <mass value="${mass_roll}"/>
+	         <inertia
+		    ixx="${mass_roll / 12.0 * (width_leg*width_leg + height_roll*height_roll)}" ixy="0.0" ixz="0.0"
+		    iyy="${mass_roll / 12.0 * (height_roll*height_roll + width_leg*width_leg)}" iyz="0.0"
+		    izz="${mass_roll / 12.0 * (width_leg*width_leg + width_leg*width_leg)}"/>
+		</inertial>
+
+		
+  </link> 
+
+
+
+
+<joint type="revolute" name="${side}_shoulder">
+        	<parent link = "${side}_invis"/>
+        	<child link = "${side}_upperleg"/>
+		<!--origin xyz = "${0.220/2*reflectx} ${0.636/2*reflecty}  0" rpy="0 0 0"/-->
+		<origin xyz = "0 0 ${-height_roll}" rpy="0 0 0"/>
+        	<axis xyz = "1 0 0"/>
+		<dynamics damping="${jointdamping}"/> 
+		<limit effort="${jointeffort}" velocity="${jointvelocity}" lower="${-PI/2}" upper="${PI/2}"/>
+		<safety_controller k_velocity="10" k_position="15" soft_lower_limit="${-PI/2+0.1}" soft_upper_limit="${PI/2+0.1}" />
+	</joint> 
+
+
+<!-- Upper Leg--> 
+   <link name="${side}_upperleg">
+          	<collision>
+          	  <origin xyz="0 0 ${-height_upperleg/2}" rpy="0 0 0"/>
+                  <geometry>
+	            <box size="${width_leg*2} ${width_leg*2} ${height_upperleg}"/>
+                  </geometry>
+		</collision>
+
+		<visual>
+          	  <origin xyz="0 0 ${-height_upperleg/2}" rpy="0 0 0"/>
+                  <geometry>
+	            <box size="${width_leg*2} ${width_leg*2} ${height_upperleg}"/>
+                  </geometry>
+		  <material name="orange"/>
+		</visual>
+
+		<inertial>
+	          <origin xyz="0 0 ${-height_upperleg/2}" rpy="0 0 0"/>
+	          <mass value="${mass_upperleg}"/>
+	          <inertia
+		    ixx="${mass_upperleg / 12.0 * (width_leg*width_leg + height_upperleg*height_upperleg)}" ixy="0.0" ixz="0.0"
+		    iyy="${mass_upperleg / 12.0 * (height_upperleg*height_upperleg + width_leg*width_leg)}" iyz="0.0"
+		    izz="${mass_upperleg / 12.0 * (width_leg*width_leg + width_leg*width_leg)}"/>
+		</inertial>
+
+		
+  </link> 
+			
+<!-- Knee Joint--> 
+
+	<joint type="revolute" name="${side}_knee">
+        	<parent link = "${side}_upperleg"/>
+        	<child link = "${side}_lowerleg"/>
+		<origin xyz = "0 0 ${-height_upperleg}" rpy="0 0 0"/>
+        	<axis xyz="1 0 0"/>
+		<dynamics damping="${jointdamping}"/>  
+		<limit effort="${jointeffort}" velocity="${jointvelocity}" lower="${-PI/2}" upper="${PI/2}"/>     
+		<safety_controller k_velocity="10" k_position="15" soft_lower_limit="${-PI/2+0.1}" soft_upper_limit="${PI/2+0.1}" />
+       </joint> 
+
+<!-- Lower Leg--> 
+   <link name="${side}_lowerleg">
+          	<collision>
+          	  <origin xyz="0 0 -${height_lowerleg/2}" rpy="0 0 0"/>
+                  <geometry>
+	            <box size="${width_leg} ${width_leg} ${height_lowerleg}"/>
+                  </geometry>
+		</collision>
+
+		<visual>
+          	  <origin xyz="0 0 -${height_lowerleg/2}" rpy="0 0 0"/>
+                  <geometry>
+	            <box size="${width_leg} ${width_leg} ${height_lowerleg}"/>
+                  </geometry>
+		  <!--<material name="orange"/>-->
+		</visual>
+
+		<inertial>
+	          <origin xyz="0 0 -${height_lowerleg/2}" rpy="0 0 0"/>
+	          <mass value="${mass_lowerleg}"/>
+	          <inertia
+		    ixx="${mass_lowerleg / 12.0 * (width_leg*width_leg + height_lowerleg*height_lowerleg)}" ixy="0.0" ixz="0.0"
+		    iyy="${mass_lowerleg / 12.0 * (height_lowerleg*height_lowerleg + width_leg*width_leg)}" iyz="0.0"
+		    izz="${mass_lowerleg / 12.0 * (width_leg*width_leg + width_leg*width_leg)}"/>
+		</inertial>
+
+		
+  </link> 
+
+<!-- Ankle Joint--> 
+
+	<joint type="revolute" name="${side}_ankle">
+        	<parent link = "${side}_lowerleg"/>
+        	<child link = "${side}_foot"/>
+		<origin xyz = "0 0 ${-height_lowerleg}" rpy="0 0 0"/>
+        	<axis xyz="1 0 0"/>
+		<dynamics damping="${jointdamping}"/>
+		<limit effort="${jointeffort}" velocity="${jointvelocity}"/>      
+		<safety_controller k_velocity="10" k_position="15" soft_lower_limit="${-PI/3+0.1}" soft_upper_limit="${PI/3+0.1}" />
+       </joint> 
+
+<!-- Foot--> 
+   <link name="${side}_foot">
+          	<collision name="${side}_foot_collision">
+          	  <!--origin xyz="0 0 -${height_foot/2}" rpy="0 0 0"/-->
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+                  <geometry>
+	            <!--box size="${width_leg} ${width_leg} ${height_foot}"/-->
+		    <sphere radius="${width_leg*SQRT2/2}"/>
+                  </geometry>
+		</collision>
+
+		<visual>
+          	  <!--origin xyz="0 0 -${height_foot/2}" rpy="0 0 0"/-->
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+                  <geometry>
+	            <!--box size="${width_leg} ${width_leg} ${height_foot}"/-->
+		    <sphere radius="${width_leg*SQRT2/2}"/>
+                  </geometry>
+		  <!--<material name="orange"/>-->
+		</visual>
+
+		<inertial>
+	          <!--origin xyz="0 0 -${height_foot/2}" rpy="0 0 0"/-->
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+	          <mass value="${mass_foot}"/>
+	          <inertia
+		    ixx="${mass_foot / 12.0 * (width_leg*width_leg + height_foot*height_foot)}" ixy="0.0" ixz="0.0"
+		    iyy="${mass_foot / 12.0 * (height_foot*height_foot + width_leg*width_leg)}" iyz="0.0"
+		    izz="${mass_foot / 12.0 * (width_leg*width_leg + width_leg*width_leg)}"/>
+		</inertial>
+				
+  </link> 
+
+	
+<!-- Gazebo Contact Sensors >
+<gazebo reference="${side}_foot">
+  	<sensor name="${side}_foot_contact_sensor" type="contact">
+        <always_on>true</always_on>
+	<update_rate>30</update_rate>
+	<contact>
+  	  <collision>${side}_foot_collision</collision>
+	</contact>
+	<plugin name="bumper0_plugin" filename="libgazebo_ros_bumper.so">
+  		<bumperTopicName>${side}_foot_sensor_state</bumperTopicName>
+  	<frameName>${side}_foot</frameName>
+	</plugin>
+	</sensor>
+</gazebo-->	
+
+
+
+
+<!-- Gazebo ODE Properties for soft terrain->
+
+  <gazebo reference="${side}_foot">
+      <mu1 value="1.0" />
+      <mu2 value="1.0" />
+      <minDepth value="0.1"/>  
+      <maxVel value="10.0"/>
+      <kp value="100000000.0" />
+      <kd value="100.0" />
+      <fdir1 value="1 0 0" />
+  </gazebo>
+
+<gazebo reference="${side}_lowerleg">
+      <mu1 value="1.0" />
+      <mu2 value="1.0" />
+      <minDepth value="0.1"/>  
+      <maxVel value="10.0"/>
+      <kp value="100000000.0" />
+      <kd value="100.0" />
+      <fdir1 value="1 0 0" />
+  </gazebo-->
+
+
+<!-- Gazebo Color -->
+  <gazebo reference="${side}_upperleg">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="${side}_lowerleg">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+  <gazebo reference="${side}_foot">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+
+<!-- Transmissions -->
+
+<transmission name="${side}_tran_shoulder_roll">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${side}_roll_shoulder">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${side}_motor_roll_shoulder">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>100</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+<transmission name="${side}_tran_shoulder">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${side}_shoulder">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${side}_motor_shoulder">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>100</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+<transmission name="${side}_tran_knee">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${side}_knee">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${side}_motor_knee">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>100</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+<transmission name="${side}_tran_ankle">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${side}_ankle">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="${side}_motor_ankle">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>100</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+
+
+  </xacro:macro>
+
+</robot>

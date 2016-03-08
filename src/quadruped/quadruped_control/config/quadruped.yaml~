@@ -1,0 +1,66 @@
+quadruped:
+
+ rf_leg_controller:
+     type: "effort_controllers/JointTrajectoryController"
+
+     joints:
+      - rf_shoulder
+      - rf_knee
+      - rf_ankle
+
+     gains:
+          rf_shoulder:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+          rf_knee:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+          rf_ankle:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+
+ rb_leg_controller:
+     type: "effort_controllers/JointTrajectoryController"
+
+     joints:
+      - rb_shoulder
+      - rb_knee
+      - rb_ankle
+
+     gains:
+          rb_shoulder:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+          rb_knee:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+          rb_ankle:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+
+ lf_leg_controller:
+     type: "effort_controllers/JointTrajectoryController"
+
+     joints:
+      - lf_shoulder
+      - lf_knee
+      - lf_ankle
+
+     gains:
+          lf_shoulder:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+          lf_knee:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+          lf_ankle:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+
+ lb_leg_controller:
+     type: "effort_controllers/JointTrajectoryController"
+
+     joints:
+      - lb_shoulder
+      - lb_knee
+      - lb_ankle
+
+     gains:
+          lb_shoulder:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+          lb_knee:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+          lb_ankle:
+            {p: 150.0, i: 0.01, d: 0.1, i_clamp: 1000}
+

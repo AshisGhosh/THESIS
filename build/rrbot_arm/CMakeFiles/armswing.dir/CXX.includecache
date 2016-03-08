@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ashis/catkin_ws/src/rrbot_arm/src/armswing.cpp
+ros/ros.h
+/home/ashis/catkin_ws/src/rrbot_arm/src/ros/ros.h
+std_msgs/Float64.h
+-
+sensor_msgs/JointState.h
+-
+math.h
+-
+

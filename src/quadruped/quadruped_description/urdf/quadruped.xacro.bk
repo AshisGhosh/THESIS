@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!-- Revolute-Revolute Manipulator -->
+<robot name="quadruped" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Load Files -->
+  <xacro:include filename="$(find quadruped_description)/urdf/leg.xacro" />
+
+
+  <!-- Constants for robot dimensions -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="mass" value="1" /> <!-- arbitrary value for mass -->
+  <xacro:property name="width_body" value="0.4" /> <!-- body width -->
+  <xacro:property name="height_body" value="0.05" /> <!-- body height -->
+  <xacro:property name="length_body" value="0.65" /> <!-- body length -->
+  
+
+  <!-- Used for fixing robot to Gazebo 'base_link' 
+  <link name="world"/>
+
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="link1"/>
+  </joint>-->
+
+  <!-- Base Link -->
+  <link name="body">
+    <collision>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${width_body} ${length_body} ${height_body}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${width_body} ${length_body} ${height_body}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia
+	  ixx="${mass / 12.0 * (length_body*length_body + height_body*height_body)}" ixy="0.0" ixz="0.0"
+	  iyy="${mass / 12.0 * (height_body*height_body + width_body*width_body)}" iyz="0.0"
+	  izz="${mass / 12.0 * (width_body*width_body + length_body*length_body)}"/>
+    </inertial>
+  </link>
+
+
+<!--<xacro:leg side="rb" reflectx="-1" reflecty="-1" parent="body"/>-->
+<xacro:property name="side" value="rb" /> <!-- body height -->
+  <xacro:property name="parent" value="body" /> <!-- body length -->
+
+
+  <xacro:property name="height_upperleg" value="0.35" /> <!-- UpperLeg Height -->
+  <xacro:property name="height_lowerleg" value="0.25" /> <!-- LowerLeg Height -->
+  <xacro:property name="height_foot" value="0.05" /> <!-- Foot Height -->
+
+
+
+  <xacro:property name="width_leg" value="0.1" /> <!-- leg width -->
+
+  <xacro:property name="mass_leg" value="1" /> <!-- leg width -->  
+<!-- Hip Joint -->
+<joint type="revolute" name="${side}_hip">
+        	<parent link = "${parent}"/>
+        	<child link = "${side}_upperleg"/>
+		<origin xyz = "${width_body/2} ${length_body/2}  0" rpy="0 0 0"/>
+        	<axis xyz="0 1 0"/>
+		<dynamics damping="0.7"/>
+	</joint>
+
+<!-- Upper Leg -->
+   <link name="${side}_upperleg">
+          	<collision>
+          	  <origin xyz="0 0 ${height_upperleg/2}" rpy="0 0 0"/>
+                  <geometry>
+	            <box size="${width_leg} ${width_leg} ${height_upperleg}"/>
+                  </geometry>
+		</collision>
+
+		<visual>
+          	  <origin xyz="0 0 ${height_upperleg/2}" rpy="0 0 0"/>
+                  <geometry>
+	            <box size="${width_leg} ${width_leg} ${height_upperleg}"/>
+                  </geometry>
+		  <material name="orange"/>
+		</visual>
+
+		<inertial>
+	          <origin xyz="0 0 ${height_upperleg/2}" rpy="0 0 0"/>
+	          <mass value="${mass_leg}"/>
+	          <inertia
+		    ixx="${mass_leg / 12.0 * (width_leg*width_leg + height_upperleg*height_upperleg)}" ixy="0.0" ixz="0.0"
+		    iyy="${mass_leg / 12.0 * (height_upperleg*height_upperleg + width_leg*width_leg)}" iyz="0.0"
+		    izz="${mass_leg / 12.0 * (width_leg*width_leg + width_leg*width_leg)}"/>	  
+	        </inertial>
+
+		
+  </link> 
+
+</robot>

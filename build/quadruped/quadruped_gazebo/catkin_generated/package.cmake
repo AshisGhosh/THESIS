@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "quadruped_gazebo")
+set(quadruped_gazebo_MAINTAINER "Ashis Ghosh <ashisghosh@live.com>")
+set(quadruped_gazebo_DEPRECATED "")
+set(quadruped_gazebo_VERSION "0.0.0")
+set(quadruped_gazebo_BUILD_DEPENDS )
+set(quadruped_gazebo_RUN_DEPENDS )
+set(quadruped_gazebo_BUILDTOOL_DEPENDS "catkin")

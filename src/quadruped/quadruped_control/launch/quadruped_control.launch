@@ -1,0 +1,11 @@
+<launch>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find quadruped_control)/config/quadruped_control.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="quadruped_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" ns="/quadruped" args="rf_leg_controller rb_leg_controller lf_leg_controller lb_leg_controller"/>
+
+
+</launch>

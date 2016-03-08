@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "gztest_description")
+set(gztest_description_MAINTAINER "Ashis Ghosh <ashisghosh@live.com>")
+set(gztest_description_DEPRECATED "")
+set(gztest_description_VERSION "0.0.0")
+set(gztest_description_BUILD_DEPENDS )
+set(gztest_description_RUN_DEPENDS )
+set(gztest_description_BUILDTOOL_DEPENDS "catkin")

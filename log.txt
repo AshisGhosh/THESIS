@@ -1,0 +1,24 @@
+... logging to /home/ashis/.ros/log/b91c0fdc-7ba9-11e5-9bf0-000c291e581d/roslaunch-ubuntu-27895.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+]2;/home/ashis/catkin_ws/src/rrbot_moveit_config/launch/rrbot_moveit_controller_manager.launch
+[1mstarted roslaunch server http://ubuntu:56942/[0m
+
+SUMMARY
+========
+
+PARAMETERS
+ * /controller_list: [{'default': True...
+ * /moveit_controller_manager: moveit_simple_con...
+ * /rosdistro: indigo
+ * /rosversion: 1.11.13
+
+NODES
+
+[1mROS_MASTER_URI=http://localhost:11311[0m
+]2;/home/ashis/catkin_ws/src/rrbot_moveit_config/launch/rrbot_moveit_controller_manager.launch http://localhost:11311
+core service [/rosout] found
+[1mNo processes to monitor[0m
+shutting down processing monitor...
+... shutting down processing monitor complete

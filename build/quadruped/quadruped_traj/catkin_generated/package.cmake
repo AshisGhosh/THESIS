@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "quadruped_traj")
+set(quadruped_traj_MAINTAINER "Ashis Ghosh <ashisghosh@live.com>")
+set(quadruped_traj_DEPRECATED "")
+set(quadruped_traj_VERSION "0.0.0")
+set(quadruped_traj_BUILD_DEPENDS )
+set(quadruped_traj_RUN_DEPENDS )
+set(quadruped_traj_BUILDTOOL_DEPENDS "catkin")

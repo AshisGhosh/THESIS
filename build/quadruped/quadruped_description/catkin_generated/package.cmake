@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "quadruped_description")
+set(quadruped_description_MAINTAINER "Ashis Ghosh <ashisghosh@live.com>")
+set(quadruped_description_DEPRECATED "")
+set(quadruped_description_VERSION "0.0.0")
+set(quadruped_description_BUILD_DEPENDS )
+set(quadruped_description_RUN_DEPENDS )
+set(quadruped_description_BUILDTOOL_DEPENDS "catkin")

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<robot name="com">
+
+
+ <joint name="worldframe" type="fixed">
+    <parent link="world"/>
+    <child link="com"/>
+    <origin xyz="0 0 1" rpy="0 0 0"/>
+  </joint>
+
+ <link name="com">
+    <collision>
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+	<box size="0 0 0"/>
+      </geometry>
+    </collision>
+
+    <visual>
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+	<box size="0.1 0.1 0.1"/>
+      </geometry>
+    </visual>
+
+
+	<inertial>
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0"/>
+      <inertia
+	  ixx="0" ixy="0.0" ixz="0.0"
+	  iyy="0" iyz="0.0"
+	  izz="0"/>
+    </inertial>
+
+<gazebo reference="com">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+
+</robot>

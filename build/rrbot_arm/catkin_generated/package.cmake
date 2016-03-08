@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "rrbot_arm")
+set(rrbot_arm_MAINTAINER "Ashis Ghosh <ashisghosh@live.com>")
+set(rrbot_arm_DEPRECATED "")
+set(rrbot_arm_VERSION "0.0.0")
+set(rrbot_arm_BUILD_DEPENDS )
+set(rrbot_arm_RUN_DEPENDS )
+set(rrbot_arm_BUILDTOOL_DEPENDS "catkin")

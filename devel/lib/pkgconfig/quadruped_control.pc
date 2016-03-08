@@ -1,0 +1,8 @@
+prefix=/home/ashis/catkin_ws/devel
+
+Name: quadruped_control
+Description: Description of quadruped_control
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/ashis/catkin_ws/devel/lib 
+Requires: 

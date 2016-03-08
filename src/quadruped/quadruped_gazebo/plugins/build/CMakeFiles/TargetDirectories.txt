@@ -1,0 +1,3 @@
+/home/ashis/catkin_ws/src/quadruped/quadruped_gazebo/plugins/build/CMakeFiles/robot_cog.dir
+/home/ashis/catkin_ws/src/quadruped/quadruped_gazebo/plugins/build/CMakeFiles/surfaceremove.dir
+/home/ashis/catkin_ws/src/quadruped/quadruped_gazebo/plugins/build/CMakeFiles/surfaces.dir

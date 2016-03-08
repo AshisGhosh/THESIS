@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <name>rrbot_arm</name>
+  <version>0.0.0</version>
+  <description>The rrbot_arm package</description>
+
+  <maintainer email="ashisghosh@live.com">Ashis Ghosh</maintainer>
+
+  <license>BSD</license>
+
+  
+  <author email="ashisghosh@live.com">Ashis Ghosh</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+  </export>
+</package>

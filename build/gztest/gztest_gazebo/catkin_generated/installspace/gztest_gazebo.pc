@@ -1,0 +1,8 @@
+prefix=/home/ashis/catkin_ws/install
+
+Name: gztest_gazebo
+Description: Description of gztest_gazebo
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/ashis/catkin_ws/install/lib 
+Requires: 

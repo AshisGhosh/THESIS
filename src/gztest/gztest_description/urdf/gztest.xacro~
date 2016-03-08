@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!-- Revolute-Revolute Manipulator -->
+<robot name="gztest" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+ <gazebo>
+	<plugin name="robot_cog" filename="librhgfobot_cog.so"/>
+  </gazebo>
+
+  <!-- Constants for robot dimensions -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="mass" value="25" /> <!-- arbitrary value for mass -->
+  <xacro:property name="width_body" value="0.4" /> <!-- body width -->
+  <xacro:property name="height_body" value="0.25" /> <!-- body height -->
+  <xacro:property name="length_body" value="0.65" /> <!-- body length -->
+  
+
+  <!-- Used for fixing robot to Gazebo 'base_link' --> 
+  <link name="world"/>
+
+  <joint name="worldframe" type="floating">
+    <parent link="world"/>
+    <child link="body"/>
+    <origin xyz="0 5 2" rpy="0 0 0"/>
+  </joint>
+
+
+  <!-- Base Link -->
+  <link name="body">
+    <collision>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${width_body} ${length_body} ${height_body}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${width_body} ${length_body} ${height_body}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia
+	  ixx="${mass / 12.0 * (length_body*length_body + height_body*height_body)}" ixy="0.0" ixz="0.0"
+	  iyy="${mass / 12.0 * (height_body*height_body + width_body*width_body)}" iyz="0.0"
+	  izz="${mass / 12.0 * (width_body*width_body + length_body*length_body)}"/>
+    </inertial>
+  </link>
+  
+  <joint name="armjoint" type="continuous">
+	<parent link="body"/>
+	<child link="arm"/>
+	<origin xyz="${width_body/2} ${length_body/2} ${height_body}" rpy="0 0 0"/>
+	<axis xyz="1 0 0"/>
+  </joint>   
+
+  <link name="arm">
+	<collision>
+		<origin xyz="0 0 0.3" rpy="0 0 0"/>
+		<geometry>
+			<box size="0.2 0.2 0.6"/>
+		</geometry>
+	</collision>
+
+	<visual>
+		<origin xyz="0 0 0.3" rpy="0 0 0"/>
+		<geometry>
+			<box size="0.2 0.2 0.6"/>
+		</geometry>
+		<material name="blue"/>
+	</visual>
+
+	<inertial>
+		<origin xyz="0 0 0.3" rpy="0 0 0"/>
+		<mass value="3"/>
+		<inertia 
+			ixx="${3/12*(0.2*0.2+0.6*0.6)}" ixy="0" ixz="0"
+			iyy="${3/12*(0.2*0.2+0.6*0.6)}" iyz="0"
+			izz="${3/12*(0.2*0.2+0.2*0.2)}" />
+	</inertial>
+  </link>
+
+
+  <gazebo reference="body">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+<gazebo reference="arm">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+
+</robot>

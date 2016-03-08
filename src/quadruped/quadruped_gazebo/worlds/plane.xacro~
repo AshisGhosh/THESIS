@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- Revolute-Revolute Manipulator -->
+<robot name="quadruped" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+ <!-- Ground Plane -->
+    <model name='plane1_model' static='1'>
+      <link name='world'>
+        <collision name='geom_1'>
+          <geometry>
+            <plane normal='0 0 1'/>
+          </geometry>
+          <surface>
+            <friction>
+              <ode mu='10.0' mu2='10.0' fdir1='0 0 0' slip1='0' slip2='0'/>
+            </friction>
+            <bounce restitution_coefficient='0' threshold='1000000.0'/>
+            <contact>
+              <ode soft_cfm='0' soft_erp='0.2' kp='1e10' kd='1' max_vel='100.0' min_depth='0.0001'/>
+            </contact>
+          </surface>
+        </collision>
+
+        <visual name='visual_1' cast_shadows='0'>
+          <geometry>
+            <plane normal='0 0 1'/>
+          </geometry>
+          <material script='Gazebo/White'>
+            <emissive rgba='1.0 1.0 1.0 1.0'/>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+</robot>

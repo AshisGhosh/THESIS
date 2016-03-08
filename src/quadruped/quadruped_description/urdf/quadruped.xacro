@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!-- Revolute-Revolute Manipulator -->
+<robot name="quadruped" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Load Files -->
+  <xacro:include filename="$(find quadruped_description)/urdf/leg.xacro" />
+
+<!-- Gazebo robot_cog plugin -->
+  <gazebo>
+	<plugin name="robot_cog" filename="librobot_cog.so"/>
+  </gazebo> 
+
+<!-- Gazebo movement plugin >
+  <gazebo>
+	<plugin name="movement" filename="libmovement.so"/>
+  </gazebo--> 
+
+ <!-- Gazebo ros_control plugin -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/quadruped</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+  
+
+  <!-- Constants for robot dimensions -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="SQRT2" value="1.41421356237309"/>
+  <xacro:property name="mass" value="44" /> <!-- arbitrary value for mass -->
+  <xacro:property name="width_body" value="0.34" /> <!-- body width -->
+  <xacro:property name="height_body" value="0.16" /> <!-- body height -->
+  <xacro:property name="length_body" value="0.800" /> <!-- body length -->
+  
+
+  <!-- Used for fixing robot to Gazebo 'base_link' --> 
+  <link name="world"/>
+
+  <joint name="worldframe" type="floating">
+    <parent link="world"/>
+    <child link="body"/>
+    <origin xyz="0 0 1" rpy="0 0 0"/>
+    <limit effort="30" velocity="1.0" lower="0.5" upper="1.2" />	
+  </joint>
+
+
+
+  <!-- Base Link -->
+  <link name="body">
+    <collision>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${width_body} ${length_body} ${height_body}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <geometry>
+	<box size="${width_body} ${length_body} ${height_body}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 ${height_body/2}" rpy="0 0 0"/>
+      <mass value="${mass}"/>
+      <inertia
+	  ixx="${mass / 12.0 * (length_body*length_body + height_body*height_body)}" ixy="0.0" ixz="0.0"
+	  iyy="${mass / 12.0 * (height_body*height_body + width_body*width_body)}" iyz="0.0"
+	  izz="${mass / 12.0 * (width_body*width_body + length_body*length_body)}"/>
+    </inertial>
+  </link>
+
+  <gazebo reference="body">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+
+ 
+
+<!-- Leg Macros -->
+<xacro:leg side="rf" reflectx="-1" reflecty="-1" parent="body"/>
+<xacro:leg side="lf" reflectx="1" reflecty="-1" parent="body"/>
+<xacro:leg side="rb" reflectx="-1" reflecty="1" parent="body"/>
+<xacro:leg side="lb" reflectx="1" reflecty="1" parent="body"/>
+
+
+<gazebo reference="body">
+  	<sensor name="body_contact_sensor" type="contact">
+        <always_on>true</always_on>
+	<update_rate>30</update_rate>
+	<contact>
+  	  <collision>body_collision</collision>
+	</contact>
+	<plugin name="bumper0_plugin" filename="libgazebo_ros_bumper.so">
+  		<bumperTopicName>body_sensor_state</bumperTopicName>
+  	<frameName>body</frameName>
+	</plugin>
+	</sensor>
+</gazebo>		
+   
+
+</robot>
