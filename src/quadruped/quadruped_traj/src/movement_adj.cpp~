@@ -10,11 +10,28 @@
 #include <gazebo/common/common.hh>
 
 
-const float PI = 3.14159265359;
+#include <iostream>
+#include <fstream>
+
+
+
+const double PI = 3.14159265359;
 int count=0;
 int phase=1;
 int countmax=35;
-float stability=0;
+double stability=0;
+
+const int arr_len = 250;
+double stb_mrg_arr[arr_len]={0};
+double stb_ave_old=0, stb_ave=0;
+int arr_count =0;
+
+double sh_r_offset = 0.00;
+double offset_inc=0.3;
+int offset_dir=1;
+double stb_threshold = 0.1;
+
+int printstart=1;
 
 void jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
 {
@@ -95,10 +112,17 @@ void jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
   rf_k_msg.data = (frontstart + (frontstep)*count/countmax)*(phase==3) + (frontstart+frontstep + frontstep*count/countmax)*(phase==0) +
 			(frontend -(frontstep)*count/countmax)*(phase==1) + (frontend-frontstep - frontstep*count/countmax)*(phase==2);
 
-  lb_rs_msg.data = -0.075;
-  lf_rs_msg.data = -0.075;
-  rb_rs_msg.data = 0.075;
-  rf_rs_msg.data = 0.075;
+
+  //nominal = 0.075
+  // lean left max = 0.3
+	
+  float l_rs_min=0.05, r_rs_min = 0.05, l_rs_max = 0.3, r_rs_max = 0.15;
+
+
+  lb_rs_msg.data = -l_rs_min - (l_rs_max-l_rs_min)*sh_r_offset;
+  lf_rs_msg.data = -l_rs_min - (l_rs_max-l_rs_min)*sh_r_offset;
+  rb_rs_msg.data = r_rs_min + (r_rs_max-r_rs_min)*sh_r_offset;
+  rf_rs_msg.data = r_rs_min + (r_rs_max-r_rs_min)*sh_r_offset;
 
 
   /*lb_s_msg.data = -PI/8*(phase==4) + -PI/4*(phase!=4)*0 + -PI/12*(phase==3) ;
@@ -155,10 +179,95 @@ void jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
   rb_knee_pub.publish(rb_k_msg);
   rf_knee_pub.publish(rf_k_msg);
 
-  ROS_INFO("%d | %d",count, phase);
+// 	CALCULATIONS DONE
+
+//	STAB METRICS CALCULATED
+
+
+	if (arr_count++<arr_len){
+		stb_mrg_arr[arr_count] = stability;		
+	}
+
+	else{
+		double stb_sum =0, stb_stddev=0, temp=stb_mrg_arr[0], stb_ave_old_c = stb_ave_old;
+		int sortdone=0;
+
+		while(!sortdone){
+			sortdone=1;
+			for (int j=0; j<arr_len-1; j++)
+				if (stb_mrg_arr[j]>stb_mrg_arr[j+1]){
+					sortdone=0;
+					temp = stb_mrg_arr[j+1];
+					stb_mrg_arr[j+1] = stb_mrg_arr[j];
+					stb_mrg_arr[j] = temp;
+				}
+		}
+	
+		/*std::ofstream arrayData("/home/ashis/Desktop/array.txt",std::ios::app);
+		
+		arrayData<< "***************START*************" <<std::endl;
+		for(int k=0;k<arr_len;k++){
+			arrayData<< stb_mrg_arr[k]<<std::endl; //Outputs array to txtFile
+		 }*/
+
+	
+		for(int i=arr_len*3/4; i<arr_len; i++)
+			stb_sum+=stb_mrg_arr[i];		
+		stb_ave = stb_sum/(arr_len/4);
+		for(int i=arr_len*3/4; i<arr_len; i++)
+			stb_stddev+=(stb_ave - stb_mrg_arr[i])*(stb_ave - stb_mrg_arr[i]);
+		stb_stddev/=(arr_len/4);
+		
+		/*offset_inc = (stb_ave-stb_ave_old_c)/stb_ave_old_c;
+		if(offset_inc>stb_threshold || offset_inc<-stb_threshold)
+			sh_r_offset+=offset_inc;*/
+
+
+
+		if(stb_ave<stb_ave_old){
+			if(offset_dir==1)
+				offset_dir=-1;
+			else if(offset_dir==-1)
+				offset_dir=1;
+		}	
+		
+		/*if(stb_ave>(stb_ave_old_c*(1+stb_threshold))||stb_ave<(stb_ave_old_c*(1-stb_threshold)))
+			if(1>= sh_r_offset+(offset_inc*offset_dir) >= 0)
+				sh_r_offset+=offset_inc*offset_dir;*/
+		
+		if(sh_r_offset+(offset_inc*offset_dir)<=1 && sh_r_offset+(offset_inc*offset_dir)>=0)
+			sh_r_offset+=offset_inc*offset_dir;		
+
+		if(stb_ave<=(stb_ave_old_c*(1+stb_threshold))&&stb_ave>=(stb_ave_old_c*(1-stb_threshold))){	
+			if(offset_inc>0.01)
+				offset_inc/=2;
+			else
+				offset_inc*=5;
+		}		
+
+
+		std::ofstream stabData("/home/ashis/Desktop/stabData.txt",std::ios::app);
+		printf("\n Outputted to stabData.txt ------------------------------\n");
+		
+		if(printstart)
+			stabData << "---" << std::endl;
+
+		printstart=0;
+
+		stabData<< stb_ave <<", "<< stb_ave_old<<", "<< (stb_ave - stb_ave_old)/stb_ave_old<<", "<<stb_stddev<<" | "<<sh_r_offset<<", "<<offset_inc*offset_dir<<std::endl; //data to txtFile
+
+		stb_ave_old = stb_ave;
+
+		
+
+		arr_count = 0;
+	}
+
+  ROS_INFO("%d | %d | %lf | %lf | %lf  | %lf",count, phase, stability, stb_ave, sh_r_offset, offset_inc*offset_dir);
 
   count++;
 
+  
   trj_msg.data=-PI/12;  
 
   lb_ankle_pub.publish(trj_msg);
@@ -182,7 +291,7 @@ void jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
   //rf_roll_shoulder_pub.publish(trj_msg);
 
   ros::spinOnce();
-  ROS_INFO("stability: %f ",stability);
+  
   
 }
 

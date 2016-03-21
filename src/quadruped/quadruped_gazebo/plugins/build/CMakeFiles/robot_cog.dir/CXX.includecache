@@ -29,6 +29,10 @@ std_msgs/Float64.h
 -
 std_msgs/String.h
 -
+iostream
+-
+fstream
+-
 
 /usr/include/gazebo-5.1/gazebo/Master.hh
 string

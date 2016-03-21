@@ -28,6 +28,13 @@
 #include <std_msgs/Float64.h>
 #include <std_msgs/String.h>
 
+#include <iostream>
+#include <fstream>
+
+const int arr_len = 2000;
+float stb_mrg_arr[arr_len]={0}, stb_mrg_ave;
+int arr_count =0;
+
 namespace gazebo
 {
 
@@ -250,6 +257,54 @@ namespace gazebo
 	std_msgs::Float64 stb_mrg_msg;
 
      	stb_mrg_msg.data = stb_mrg;
+	
+	printf("\n %d \n",arr_count);
+
+	/*if (arr_count++<arr_len){
+		stb_mrg_arr[arr_count] = stb_mrg;		
+	}
+
+	else{
+		float stb_sum =0, stb_ave=0, stb_stddev=0, temp=stb_mrg_arr[0];
+		int sortdone=0;
+
+		
+		while(!sortdone){
+			sortdone=1;
+			for (int j=0; j<arr_len; j++)
+				if (stb_mrg_arr[j]>stb_mrg_arr[j+1]){
+					sortdone=0;
+					temp = stb_mrg_arr[j+1];
+					stb_mrg_arr[j+1] = stb_mrg_arr[j];
+					stb_mrg_arr[j] = temp;
+				}
+		}
+	
+		/*std::ofstream arrayData("/home/ashis/Desktop/array.txt",std::ios::app);
+		
+		arrayData<< "***************START*************" <<std::endl;
+		for(int k=0;k<arr_len;k++){
+			arrayData<< stb_mrg_arr[k]<<std::endl; //Outputs array to txtFile
+		 }
+
+	
+		for(int i=arr_len*3/4; i<arr_len; i++)
+			stb_sum+=stb_mrg_arr[i];		
+		stb_ave = stb_sum/arr_len;
+		for(int i=arr_len*3/4; i<arr_len; i++)
+			stb_stddev+=(stb_ave - stb_mrg_arr[i])*(stb_ave - stb_mrg_arr[i]);
+		stb_stddev/=arr_len;
+
+		std::ofstream stabData("/home/ashis/Desktop/array.txt",std::ios::app);
+		
+		arrayData<< "***************START*************" <<std::endl;
+		for(int k=0;k<arr_len;k++){
+			arrayData<< stb_mrg_arr[k]<<std::endl; //Outputs array to txtFile
+		 }
+		arr_count = 0;
+	}*/
+
+
 
 	if(cog_area>area){
 		stable ="UNSTABLE";

@@ -27,6 +27,10 @@ gazebo/physics/physics.hh
 -
 gazebo/common/common.hh
 -
+iostream
+-
+fstream
+-
 
 /usr/include/gazebo-5.1/gazebo/Master.hh
 string
