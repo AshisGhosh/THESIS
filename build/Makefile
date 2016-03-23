@@ -293,6 +293,19 @@ movement_adj/fast:
 .PHONY : movement_adj/fast
 
 #=============================================================================
+# Target rules for targets named movement_adj_step
+
+# Build rule for target.
+movement_adj_step: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 movement_adj_step
+.PHONY : movement_adj_step
+
+# fast build rule for target.
+movement_adj_step/fast:
+	$(MAKE) -f quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/build.make quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/build
+.PHONY : movement_adj_step/fast
+
+#=============================================================================
 # Target rules for targets named roscpp_generate_messages_cpp
 
 # Build rule for target.
@@ -1096,6 +1109,7 @@ help:
 	@echo "... move"
 	@echo "... movement"
 	@echo "... movement_adj"
+	@echo "... movement_adj_step"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_py"

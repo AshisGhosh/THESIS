@@ -488,12 +488,14 @@ moveit_robots/quadruped_moveit_config/preinstall:
 quadruped/quadruped_traj/all: quadruped/quadruped_traj/CMakeFiles/move.dir/all
 quadruped/quadruped_traj/all: quadruped/quadruped_traj/CMakeFiles/movement.dir/all
 quadruped/quadruped_traj/all: quadruped/quadruped_traj/CMakeFiles/movement_adj.dir/all
+quadruped/quadruped_traj/all: quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/all
 .PHONY : quadruped/quadruped_traj/all
 
 # Convenience name for "clean" pass in the directory.
 quadruped/quadruped_traj/clean: quadruped/quadruped_traj/CMakeFiles/move.dir/clean
 quadruped/quadruped_traj/clean: quadruped/quadruped_traj/CMakeFiles/movement.dir/clean
 quadruped/quadruped_traj/clean: quadruped/quadruped_traj/CMakeFiles/movement_adj.dir/clean
+quadruped/quadruped_traj/clean: quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/clean
 quadruped/quadruped_traj/clean: quadruped/quadruped_traj/CMakeFiles/roscpp_generate_messages_cpp.dir/clean
 quadruped/quadruped_traj/clean: quadruped/quadruped_traj/CMakeFiles/roscpp_generate_messages_lisp.dir/clean
 quadruped/quadruped_traj/clean: quadruped/quadruped_traj/CMakeFiles/roscpp_generate_messages_py.dir/clean
@@ -612,6 +614,41 @@ quadruped/quadruped_traj/CMakeFiles/movement_adj.dir/clean:
 
 # clean rule for target.
 clean: quadruped/quadruped_traj/CMakeFiles/movement_adj.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir
+
+# All Build rule for target.
+quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/all:
+	$(MAKE) -f quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/build.make quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/depend
+	$(MAKE) -f quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/build.make quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ashis/catkin_ws/build/CMakeFiles  10
+	@echo "Built target movement_adj_step"
+.PHONY : quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/all
+
+# Include target in all.
+all: quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ashis/catkin_ws/build/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ashis/catkin_ws/build/CMakeFiles 0
+.PHONY : quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/rule
+
+# Convenience name for target.
+movement_adj_step: quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/rule
+.PHONY : movement_adj_step
+
+# clean rule for target.
+quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/clean:
+	$(MAKE) -f quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/build.make quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/clean
+.PHONY : quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/clean
+
+# clean rule for target.
+clean: quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/clean
 .PHONY : clean
 
 #=============================================================================

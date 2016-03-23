@@ -78,40 +78,39 @@ void jointCallback(const sensor_msgs::JointState::ConstPtr& msg)
   if (phase == 4)
 	phase = 0;
 
-  double backstart = -3*PI/18+0.1;
+  double backstart = -3*PI/12+0.15;
   double backend = 0;
   double backstep = (backend-backstart)/2; 
 
-  double frontstart = -PI/18;
-  double frontend = PI/8;
+  double frontstart = -PI/12;
+  double frontend = PI/6;
   double frontstep = (frontend-frontstart)/2;  
 
-  lb_s_msg.data = (backstart + (backstep)*count/countmax)*(phase==2) + (backstart+backstep + backstep*count/countmax)*(phase==3) +
-			(backend -(backstep)*count/countmax)*(phase==0) + (backend-backstep - backstep*count/countmax)*(phase==1);
-  lf_s_msg.data = (frontstart + (frontstep)*count/countmax)*(phase==3) + (frontstart+frontstep + frontstep*count/countmax)*(phase==0) +
-			(frontend -(frontstep)*count/countmax)*(phase==1) + (frontend-frontstep - frontstep*count/countmax)*(phase==2);
-  rb_s_msg.data = (backstart + (backstep)*count/countmax)*(phase==0) + (backstart+backstep + backstep*count/countmax)*(phase==1) +
-			(backend -(backstep)*count/countmax)*(phase==2) + (backend-backstep - backstep*count/countmax)*(phase==3);
-  rf_s_msg.data = (frontstart + (frontstep)*count/countmax)*(phase==1) + (frontstart+frontstep + frontstep*count/countmax)*(phase==2) +
-			(frontend -(frontstep)*count/countmax)*(phase==3) + (frontend-frontstep - frontstep*count/countmax)*(phase==0);
+  lb_s_msg.data = (backstart + (backstep)*count/countmax)*(phase==3) + (backstart+backstep + backstep*count/countmax)*(phase==0) +
+			(backend -(backstep)*count/countmax)*(phase==1) + (backend-backstep - backstep*count/countmax)*(phase==2);
+  lf_s_msg.data = (frontstart + (frontstep)*count/countmax)*(phase==0) + (frontstart+frontstep + frontstep*count/countmax)*(phase==1) +
+			(frontend -(frontstep)*count/countmax)*(phase==2) + (frontend-frontstep - frontstep*count/countmax)*(phase==3);
+  rb_s_msg.data = (backstart + (backstep)*count/countmax)*(phase==1) + (backstart+backstep + backstep*count/countmax)*(phase==2) +
+			(backend -(backstep)*count/countmax)*(phase==3) + (backend-backstep - backstep*count/countmax)*(phase==0);
+  rf_s_msg.data = (frontstart + (frontstep)*count/countmax)*(phase==2) + (frontstart+frontstep + frontstep*count/countmax)*(phase==3) +
+			(frontend -(frontstep)*count/countmax)*(phase==0) + (frontend-frontstep - frontstep*count/countmax)*(phase==1);
    
   backstart = PI/3;
-  backend = 3*PI/24;
+  backend = 7*PI/24;
   backstep = (backend-backstart)/2; 
 
-  frontstart = -PI/18;
-  frontend = -PI/8;
-  frontstep = (frontend-frontstart)/2;
+  frontstart = -PI/4;
+  frontend = -PI/4;
+  frontstep = (frontend-frontstart)/2; 
 
-
-  lb_k_msg.data = (backstart + (backstep)*count/countmax)*(phase==3) + (backstart+backstep + backstep*count/countmax)*(phase==0) +
-			(backend -(backstep)*count/countmax)*(phase==1) + (backend-backstep - backstep*count/countmax)*(phase==2);
-  lf_k_msg.data = (frontstart + (frontstep)*count/countmax)*(phase==0) + (frontstart+frontstep + frontstep*count/countmax)*(phase==1) +
-			(frontend -(frontstep)*count/countmax)*(phase==2) + (frontend-frontstep - frontstep*count/countmax)*(phase==3);
-  rb_k_msg.data = (backstart + (backstep)*count/countmax)*(phase==1) + (backstart+backstep + backstep*count/countmax)*(phase==2) +
-			(backend -(backstep)*count/countmax)*(phase==3) + (backend-backstep - backstep*count/countmax)*(phase==0);
-  rf_k_msg.data = (frontstart + (frontstep)*count/countmax)*(phase==2) + (frontstart+frontstep + frontstep*count/countmax)*(phase==3) +
-			(frontend -(frontstep)*count/countmax)*(phase==0) + (frontend-frontstep - frontstep*count/countmax)*(phase==1);
+  lb_k_msg.data = (backstart + (backstep)*count/countmax)*(phase==2) + (backstart+backstep + backstep*count/countmax)*(phase==3) +
+			(backend -(backstep)*count/countmax)*(phase==0) + (backend-backstep - backstep*count/countmax)*(phase==1);
+  lf_k_msg.data = (frontstart + (frontstep)*count/countmax)*(phase==1) + (frontstart+frontstep + frontstep*count/countmax)*(phase==2) +
+			(frontend -(frontstep)*count/countmax)*(phase==3) + (frontend-frontstep - frontstep*count/countmax)*(phase==0);
+  rb_k_msg.data = (backstart + (backstep)*count/countmax)*(phase==0) + (backstart+backstep + backstep*count/countmax)*(phase==1) +
+			(backend -(backstep)*count/countmax)*(phase==2) + (backend-backstep - backstep*count/countmax)*(phase==3);
+  rf_k_msg.data = (frontstart + (frontstep)*count/countmax)*(phase==3) + (frontstart+frontstep + frontstep*count/countmax)*(phase==0) +
+			(frontend -(frontstep)*count/countmax)*(phase==1) + (frontend-frontstep - frontstep*count/countmax)*(phase==2);
 
 
   //nominal = 0.075

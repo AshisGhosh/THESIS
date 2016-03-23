@@ -31,6 +31,7 @@
 /home/ashis/catkin_ws/build/moveit_robots/baxter/baxter_ikfast_left_arm_plugin/CMakeFiles/moveit_msgs_generate_messages_py.dir
 /home/ashis/catkin_ws/build/quadruped/quadruped_traj/CMakeFiles/movement.dir
 /home/ashis/catkin_ws/build/quadruped/quadruped_traj/CMakeFiles/movement_adj.dir
+/home/ashis/catkin_ws/build/quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir
 /home/ashis/catkin_ws/build/moveit_robots/baxter/baxter_ikfast_left_arm_plugin/CMakeFiles/object_recognition_msgs_generate_messages_cpp.dir
 /home/ashis/catkin_ws/build/moveit_robots/baxter/baxter_ikfast_left_arm_plugin/CMakeFiles/object_recognition_msgs_generate_messages_lisp.dir
 /home/ashis/catkin_ws/build/moveit_robots/baxter/baxter_ikfast_left_arm_plugin/CMakeFiles/object_recognition_msgs_generate_messages_py.dir

@@ -1,0 +1,39 @@
+CONTROL - backwards
+  double backstart = -3*PI/12+0.1;
+  double backend = 0;
+  double backstep = (backend-backstart)/2; 
+
+  double frontstart = -PI/12;
+  double frontend = PI/6;
+  double frontstep = (frontend-frontstart)/2;   
+
+  backstart = PI/3;
+  backend = 3*PI/24;
+  backstep = (backend-backstart)/2; 
+
+  frontstart = -PI/12;
+  frontend = -PI/4;
+  frontstep = (frontend-frontstart)/2;
+
+TALL SHORT STEPS
+
+  double backstart = -3*PI/18+0.1;
+  double backend = 0;
+  double backstep = (backend-backstart)/2; 
+
+  double frontstart = -PI/18;
+  double frontend = PI/8;
+  double frontstep = (frontend-frontstart)/2;  
+
+  backstart = PI/3;
+  backend = 3*PI/24;
+  backstep = (backend-backstart)/2; 
+
+  frontstart = -PI/18;
+  frontend = -PI/8;
+  frontstep = (frontend-frontstart)/2;
+
+LONG LONG STEPS
+
+
+

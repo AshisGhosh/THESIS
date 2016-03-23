@@ -192,6 +192,20 @@ movement_adj/fast:
 .PHONY : movement_adj/fast
 
 # Convenience name for target.
+quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/rule:
+	cd /home/ashis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/rule
+.PHONY : quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/rule
+
+# Convenience name for target.
+movement_adj_step: quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/rule
+.PHONY : movement_adj_step
+
+# fast build rule for target.
+movement_adj_step/fast:
+	cd /home/ashis/catkin_ws/build && $(MAKE) -f quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/build.make quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/build
+.PHONY : movement_adj_step/fast
+
+# Convenience name for target.
 quadruped/quadruped_traj/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
 	cd /home/ashis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 quadruped/quadruped_traj/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
 .PHONY : quadruped/quadruped_traj/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
@@ -389,6 +403,30 @@ src/movement_adj.cpp.s:
 	cd /home/ashis/catkin_ws/build && $(MAKE) -f quadruped/quadruped_traj/CMakeFiles/movement_adj.dir/build.make quadruped/quadruped_traj/CMakeFiles/movement_adj.dir/src/movement_adj.cpp.s
 .PHONY : src/movement_adj.cpp.s
 
+src/movement_adj_step.o: src/movement_adj_step.cpp.o
+.PHONY : src/movement_adj_step.o
+
+# target to build an object file
+src/movement_adj_step.cpp.o:
+	cd /home/ashis/catkin_ws/build && $(MAKE) -f quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/build.make quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/src/movement_adj_step.cpp.o
+.PHONY : src/movement_adj_step.cpp.o
+
+src/movement_adj_step.i: src/movement_adj_step.cpp.i
+.PHONY : src/movement_adj_step.i
+
+# target to preprocess a source file
+src/movement_adj_step.cpp.i:
+	cd /home/ashis/catkin_ws/build && $(MAKE) -f quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/build.make quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/src/movement_adj_step.cpp.i
+.PHONY : src/movement_adj_step.cpp.i
+
+src/movement_adj_step.s: src/movement_adj_step.cpp.s
+.PHONY : src/movement_adj_step.s
+
+# target to generate assembly for a file
+src/movement_adj_step.cpp.s:
+	cd /home/ashis/catkin_ws/build && $(MAKE) -f quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/build.make quadruped/quadruped_traj/CMakeFiles/movement_adj_step.dir/src/movement_adj_step.cpp.s
+.PHONY : src/movement_adj_step.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -403,6 +441,7 @@ help:
 	@echo "... move"
 	@echo "... movement"
 	@echo "... movement_adj"
+	@echo "... movement_adj_step"
 	@echo "... rebuild_cache"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_lisp"
@@ -423,6 +462,9 @@ help:
 	@echo "... src/movement_adj.o"
 	@echo "... src/movement_adj.i"
 	@echo "... src/movement_adj.s"
+	@echo "... src/movement_adj_step.o"
+	@echo "... src/movement_adj_step.i"
+	@echo "... src/movement_adj_step.s"
 .PHONY : help
 
 

@@ -25,6 +25,10 @@ add_executable(movement_adj src/movement_adj.cpp)
 
 target_link_libraries(movement_adj ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
 
+add_executable(movement_adj_step src/movement_adj_step.cpp)
+
+target_link_libraries(movement_adj_step ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} ${Boost_LIBRARIES})
+
 add_executable(move src/move.cpp)
 
 target_link_libraries(move ${catkin_LIBRARIES})
